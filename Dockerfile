@@ -26,5 +26,10 @@ COPY . /app/
 
 EXPOSE 8000
 
-# We use 0.0.0.0 so it's accessible outside the container
-CMD ["python3", "lookit/manage.py", "runserver", "0.0.0.0:8000"]
+# Combine commands using "sh -c"
+# This ensures migrations run EVERY time the container starts before the server
+CMD ["sh", "-c", "python3 lookit/manage.py migrate && python3 lookit/manage.py runserver 0.0.0.0:8000"]
+
+# COPY entrypoint.sh /entrypoint.sh
+# RUN chmod +x /entrypoint.sh
+# ENTRYPOINT ["/entrypoint.sh"]
