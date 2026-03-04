@@ -142,7 +142,6 @@ def otp_verification(request):
                         full_name=request.session['signup_data'].get('full_name'),
                         referred_by=referred_by,
                         is_staff=True,
-                        is_supervisor=True,
                         referral_code=generate_referral_code(),
                     )
                     new_user.save()
