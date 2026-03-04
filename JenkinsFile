@@ -1,0 +1,60 @@
+pipeline {
+    agent any
+
+    environment {
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub-auth')
+        APP_NAME = "frizzbe/lookit-ecommerce"
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Lint & Static Analysis') {
+            steps {
+                sh 'pip install flake8'
+                sh 'flake8 . --exclude=venv,migrations'
+            }
+        }
+
+        stage('Unit Tests') {
+            steps {
+                // We use Docker to run tests so we don't need Postgres on the Jenkins host
+                sh 'docker-compose -f docker-compose.test.yml up --exit-code-from web'
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                sh "docker build -t ${APP_NAME}:${env.BUILD_ID} ."
+                sh "docker tag ${APP_NAME}:${env.BUILD_ID} ${APP_NAME}:latest"
+            }
+        }
+
+        stage('Push to Docker Hub') {
+            steps {
+                sh "echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin"
+                sh "docker push ${APP_NAME}:${env.BUILD_ID}"
+                sh "docker push ${APP_NAME}:latest"
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo "Deploying to Staging Server..."
+                // In a real scenario, you'd use SSH or Ansible here
+                sh "docker-compose up -d"
+            }
+        }
+    }
+    
+    post {
+        always {
+            sh 'docker-compose down'
+            cleanWs()
+        }
+    }
+}
