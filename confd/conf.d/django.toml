@@ -1,0 +1,15 @@
+[template]
+src = "env.tmpl"
+dest = "/.env"
+keys = [
+  "/lookit/db_user",
+  "/lookit/db_name",
+  "/lookit/db_password",
+  "/lookit/db_host",
+  "/lookit/db_port",
+  "/lookit/cloudinary_cloud_name",
+  "/lookit/cloudinary_api_key",
+  "/lookit/cloudinary_api_secret",
+  "/lookit/email_host_user",
+  "/lookit/email_host_password",
+]
