@@ -10,6 +10,7 @@ spec:
     matchLabels:
       app: lookit-app
   template:
+    serviceAccountName: lookit-sa
     metadata:
       labels:
         app: lookit-app
@@ -20,11 +21,6 @@ spec:
         image: branson404/ecommerse-django-project:latest 
         ports:
         - containerPort: 8000
-        env:
-        - name: DEBUG
-          value: "0"
-        - name: DATABASE_URL
-          value: "postgres://user:password@db-host:5432/dbname"
         # Resource limits prevent one pod from crashing the whole node
         resources:
           requests:
