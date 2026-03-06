@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lookit-app
+  labels:
+    app: lookit-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: lookit-app
+  template:
+    metadata:
+      labels:
+        app: lookit-app
+    spec:
+      containers:
+      - name: lookit-app-container
+        # Replace with your Docker Hub image from the GitHub Action step
+        image: branson404/ecommerse-django-project:latest 
+        ports:
+        - containerPort: 8000
+        env:
+        - name: DEBUG
+          value: "0"
+        - name: DATABASE_URL
+          value: "postgres://user:password@db-host:5432/dbname"
+        # Resource limits prevent one pod from crashing the whole node
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
