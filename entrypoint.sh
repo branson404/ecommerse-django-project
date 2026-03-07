@@ -3,7 +3,7 @@ set -e
 
 # 1. Fetch from Secrets Manager and render .env
 echo "Fetching secrets and rendering templates..."
-confd -onetime -backend secretsmanager -node us-east-1
+/usr/local/bin/confd -onetime -backend secretsmanager -node us-east-1
 
 # 2. Wait for DB (Good practice to avoid migration crashes)
 # This assumes your DB_HOST and DB_PORT were rendered into the .env
