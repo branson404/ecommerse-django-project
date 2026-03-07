@@ -18,7 +18,7 @@ spec:
       containers:
       - name: lookit-app-container
         # Replace with your Docker Hub image from the GitHub Action step
-        image: branson404/django-app:069db9494f782c1cb87a28573537caf9281b7544
+        image: branson404/django-app:e02118ed9ac8e8bd2ac25bdf2aaa86e3111103dd
         ports:
         - containerPort: 8000
         # Resource limits prevent one pod from crashing the whole node
