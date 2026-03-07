@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: lookit-sa
+  namespace: django-app
+  annotations:
+    # REPLACE with your actual IAM Role ARN
+    eks.amazonaws.com/role-arn: arn:aws:iam::702252493729:role/lookit-secrets-manager-role
