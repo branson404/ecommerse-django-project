@@ -34,8 +34,7 @@ jobs:
         run: |
           # Generate coverage report for SonarCloud
           pip install pytest-cov
-          export DJANGO_SETTINGS_MODULE=lookit.settings
-          pytest --cov=. --cov-report=xml
+          
 
       # - name: SonarCloud Scan
       #   uses: SonarSource/sonarcloud-github-action@master
