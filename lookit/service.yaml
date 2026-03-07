@@ -3,6 +3,11 @@ kind: Service
 metadata:
   name: lookit-service
   namespace: django-app
+  annotations:
+    # This tells AWS: "Create a public-facing NLB/ALB, not an internal one"
+    service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
+    service.beta.kubernetes.io/aws-load-balancer-type: external
+    service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: ip
 spec:
   selector:
     app: lookit-app
