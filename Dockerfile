@@ -18,6 +18,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
+# Download and install confd
+RUN curl -L https://github.com/kelseyhightower/confd/releases/download/v0.16.0/confd-0.16.0-linux-amd64 -o /usr/local/bin/confd \
+    && chmod +x /usr/local/bin/confd
+
 # Install dependencies
 RUN pip install --upgrade pip
 COPY requirements.txt /app/
