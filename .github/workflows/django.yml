@@ -79,6 +79,6 @@ jobs:
           # Commit and push -No spaces in the commit message variable
           git config --global user.name "github-actions"
           git config --global user.email "actions@github.com"
-          git add "$DEPLOY_FILE"
+          git add lookit/deploy.yaml
           git commit -m "Deploy: update image to ${{ github.sha }}"
           git push
