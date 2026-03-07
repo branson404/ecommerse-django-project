@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: lookit-service
+  namespace: django-app
+spec:
+  selector:
+    app: lookit-app
+  ports:
+    - protocol: TCP
+      port: 80         # The port the LoadBalancer listens on
+      targetPort: 8000 # The port your Django/Gunicorn app listens on
+  type: LoadBalancer   # This tells EKS to provision an AWS Load Balancer
