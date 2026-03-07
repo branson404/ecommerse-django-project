@@ -69,10 +69,10 @@ jobs:
       - name: Update Kubernetes Manifest
         run: |
           # Use 'sed' to update the image tag in your deployment file
-          sed -i "s|image: .*|image: ${{ secrets.DOCKERHUB_USERNAME }}/lookit-app:${{ github.sha }}|g" lookit/deployment.yaml
+          sed -i "s|image: .*|image: ${{ secrets.DOCKERHUB_USERNAME }}/django-app:${{ github.sha }}|g" lookit/deploy.yaml
           
           git config --global user.name "github-actions"
           git config --global user.email "actions@github.com"
-          git add lookit/deployment.yaml
+          git add lookit/deploy.yaml
           git commit -m "Deploy: update image to ${ { github.sha } }"
           git push
