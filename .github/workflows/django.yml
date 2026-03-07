@@ -69,6 +69,7 @@ jobs:
       - name: Update Kubernetes Manifest
         run: |
           # Use 'sed' to update the image tag in your deployment file
+          find . -name "*deploy*.yaml"
           sed -i "s|image: .*|image: ${{ secrets.DOCKERHUB_USERNAME }}/django-app:${{ github.sha }}|g" lookit/deploy.yaml
           
           git config --global user.name "github-actions"
