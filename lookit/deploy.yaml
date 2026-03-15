@@ -10,11 +10,12 @@ spec:
     matchLabels:
       app: lookit-app
   template:
-    serviceAccountName: lookit-sa
+    
     metadata:
       labels:
         app: lookit-app
     spec:
+      serviceAccountName: lookit-sa
       containers:
       - name: lookit-app-container
         # Replace with your Docker Hub image from the GitHub Action step
