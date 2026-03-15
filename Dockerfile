@@ -26,6 +26,8 @@ WORKDIR /app
 
 # Install system dependencies including netcat
 RUN apt-get update && apt-get install -y --no-install-recommends \
+    awscli \
+    jq \
     build-essential \
     libpq-dev \
     libcairo2-dev \
